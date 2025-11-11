@@ -14,7 +14,6 @@ window.addEventListener('message', (event) => {
 });
 
 function startProgress(text, duration) {
-    // DÜZELTME: JS'nin HTML elementlerini bulacağından emin olalım
     const container = document.getElementById('progressContainer');
     const progressText = document.getElementById('progressText');
     const progressFill = document.getElementById('progressBarFill');
