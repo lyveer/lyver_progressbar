@@ -1,0 +1,171 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    font-family: 'Rye', serif;
+}
+
+/* Container - Ekranın orta altında */
+.progress-container {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 480px;
+    /* Config.Width */
+    /* height: 240px; YORUM: Bu satır :root içindeki değişken tarafından ezildiği için kaldırılabilir veya bırakılabilir */
+    /* bottom: 150px; YORUM: Bu satır :root içindeki değişken tarafından ezildiği için kaldırılabilir veya bırakılabilir */
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* DEĞİŞİKLİK BURADA: center -> flex-start */
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.progress-container.active {
+    display: flex;
+    animation: fadeIn 0.3s forwards;
+}
+
+.progress-container.fadeOut {
+    animation: fadeOut 0.3s forwards;
+}
+
+/* Text */
+.progress-text {
+    font-size: 16px;
+    color: var(--text-color); /* DEĞİŞİKLİK: Değişken kullanıldı */
+    text-align: center;
+    margin-bottom: 10px; /* DEĞİŞİKLİK: Arka plan eklediğimiz için boşluk artırıldı */
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.9);
+    letter-spacing: 0px;
+    font-weight: 400;
+
+    /* YENİ EKLEMELER: Metin arka planı için */
+    position: relative; /* Arka planı konumlandırmak için */
+    z-index: 2; /* Metnin arka planın önünde olmasını sağlar */
+    padding: 5px 15px; /* Metin ve arka plan kenarları arasına boşluk */
+    white-space: nowrap;
+}
+
+/* YENİ EKLEME: Metin için siyah brush arka planı */
+.progress-text::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Metnin arkasında */
+    background-image: url('brush4.png'); /* YENİ GÖRSEL: Yeni fırça görseli */
+    background-size: 100% 100%; /* Kapsayıcıya sığdır */
+    background-repeat: no-repeat;
+    background-position: center;
+    filter: brightness(0); /* Fırçayı siyah yapar */
+}
+
+
+.progress-bar-wrapper {
+    position: relative;
+    width: 100%;
+    height: 80px; /* YORUM: Bu :root içindeki height tarafından eziliyor */
+}
+
+/* Background (Siyah) */
+.progress-bar-bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: url('brush.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: var(--bg-filter); /* DEĞİŞİKLİK: Değişken kullanıldı */
+}
+
+/* Fill (Beyaz) */
+.progress-bar-fill {
+    position: absolute;
+    width: 0%;
+    height: 100%;
+    overflow: hidden;
+    transition: width 0.1s linear;
+}
+
+.progress-bar-fill::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 480px; /* YORUM: Bu :root içindeki --progress-width tarafından eziliyor */
+    height: 100%;
+    background-image: url('brush.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: var(--fill-filter); /* DEĞİŞİKLİK: Değişken kullanıldı */
+}
+
+/* Animasyonlar (Değişiklik yok) */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateX(-50%) translateY(20px);
+    }
+}
+
+/* Responsive boyutlar için CSS variables */
+:root {
+    --progress-width: 480px;
+    --progress-height: 50px;
+    --progress-bottom: 75px;
+    
+    /* DEĞİŞİKLİKLER BURADA */
+    --text-color: #FFFFFF; /* Metni beyaz yapar */
+    --bg-filter: brightness(0) saturate(100%); /* Arka planı siyah yapar (Zaten böyleydi) */
+    --fill-filter: brightness(100%); /* Dolguyu beyaz yapar */
+}
+
+
+.progress-container {
+    width: var(--progress-width);
+    height: var(--progress-height);
+    bottom: var(--progress-bottom);
+}
+
+.progress-text {
+    color: var(--text-color);
+}
+
+.progress-bar-bg {
+    filter: var(--bg-filter);
+}
+
+.progress-bar-fill::before {
+    width: var(--progress-width);
+    filter: var(--fill-filter);
+}
+
