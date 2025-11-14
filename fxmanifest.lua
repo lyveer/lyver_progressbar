@@ -22,4 +22,13 @@ files {
     'html/brush4.png'
 }
 
+escrow_ignore {
+    'html/index.html',
+    'html/style.css',
+    'html/script.js',
+    'client.lua'
+}
+
+
+
 export 'lyverprogress' 

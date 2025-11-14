@@ -66,7 +66,7 @@ RegisterNUICallback('ProgressFinished', function(args, nuicb)
     end
 
     if queue[1] then
-        table.remove(queue, 1) -- Remove prog from queue
+        table.remove(queue, 1) 
     end
 
     nuicb('ok')
