@@ -18,7 +18,7 @@ function startProgress(text, duration) {
     const progressText = document.getElementById('progressText');
     const progressFill = document.getElementById('progressBarFill');
 
-    console.log(text);
+
 
     progressText.textContent = text;
     progressFill.style.width = '0%';
